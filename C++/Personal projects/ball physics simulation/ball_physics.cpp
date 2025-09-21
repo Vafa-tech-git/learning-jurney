@@ -2,7 +2,7 @@
 namespace generalmath
 {
 
-  int g{10};
+  costexpr int g{10};
 
 }
 

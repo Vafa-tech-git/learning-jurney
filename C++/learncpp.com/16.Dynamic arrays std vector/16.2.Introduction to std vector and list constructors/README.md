@@ -11,4 +11,5 @@ The product is: 24\
 ```
 
 **Note:** \
-The program is trivial, but it helps with understanding vectors.
+The program is trivial, but it helps with understanding vectors.\
+I don't think it even needs comments to be understood.

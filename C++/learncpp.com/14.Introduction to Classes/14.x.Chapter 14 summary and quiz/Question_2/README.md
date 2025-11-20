@@ -1,6 +1,6 @@
 # Fraction Calculator
 
-Hi there
+Hi there!
 This exercise demonstrates the use of classes in C++ by implementing a fraction calculator.
 The program defines a `Fraction` class that represents a mathematical fraction with a numerator and denominator.
 It shows how to:

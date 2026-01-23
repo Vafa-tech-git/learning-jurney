@@ -114,8 +114,9 @@
         char input{};
 
         do{
-          
-          if (m_gold < Potion::cost[3]){
+
+          // Check if player can afford the cheapest potion (speed = 12 gold)
+          if (m_gold < Potion::cost[Potion::speed_potion]){
             break;
           }
 
@@ -141,9 +142,12 @@
           else if(m_gold >= Potion::cost[numeric_input]){
             m_inventory.push_back(static_cast<Potion::Type>(numeric_input));
             m_gold -= Potion::cost[static_cast<std::size_t>(numeric_input)];
+            std::cout << "You purchased a potion of " << Potion::name[numeric_input]
+                      << ". You have " << m_gold << " gold left.\n";
           }
-
-          std::cerr << "\n \tTest Gold" << m_gold;
+          else {
+            std::cout << "You don't have enough gold for that potion. Try again: ";
+          }
 
         } while (true);
 

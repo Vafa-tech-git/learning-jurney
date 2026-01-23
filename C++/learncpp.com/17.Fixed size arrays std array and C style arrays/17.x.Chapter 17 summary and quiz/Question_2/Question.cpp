@@ -65,9 +65,14 @@
       std::vector<Potion::Type> m_inventory{};
       int m_gold{Generator()};
 
-      void InputValidation(){
+      bool hasExtraneousInput(){
+        // Check if the next character is newline (valid) or something else (extraneous)
+        return std::cin.peek() != '\n';
+      }
+
+      void clearInput(){
         if(!std::cin)
-        std::cin.clear();
+          std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       }
 
@@ -100,6 +105,17 @@
       }
 
     public:
+      void printInventory() const {
+        if (m_inventory.empty()){
+          std::cout << "Your inventory is empty.\n";
+          return;
+        }
+
+        std::cout << "Your inventory contains:\n";
+        for (const auto& potion : m_inventory){
+          std::cout << "A potion of " << Potion::name[potion] << '\n';
+        }
+      }
       void UserName(){
 
         std::cout << "Enter your name: "; 
@@ -125,7 +141,10 @@
           valid = true;
 
           std::cin >> input;
-          InputValidation();
+
+          // Check for extraneous input before clearing
+          bool extraneous = hasExtraneousInput();
+          clearInput();
 
           if(input == 'q'){
             break;
@@ -134,6 +153,11 @@
           int numeric_input{charNumToInt(input)};
 
           ValidationConditioning(numeric_input, input, valid);
+
+          // Mark as invalid if there was extraneous input (e.g., "2d" or "25")
+          if(extraneous){
+            valid = false;
+          }
 
 
           if(!valid){
@@ -164,7 +188,8 @@
     session.PurchaseSystem();
 
     std::cout << '\n';
-    std::cout << "Tanks for shopping at Roscoe's potion emporium!";
+    session.printInventory();
+    std::cout << "Thanks for shopping at Roscoe's potion emporium!";
 
   }
 
